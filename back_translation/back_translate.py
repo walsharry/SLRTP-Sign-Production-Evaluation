@@ -344,7 +344,6 @@ def make_back_translation_model(model_dir: Union[str, Path]):
     model.eval()
 
     model.max_output_len = max_output_len
-    # TODO: chekc this is 30
     if use_cuda:
         model.cuda()
 

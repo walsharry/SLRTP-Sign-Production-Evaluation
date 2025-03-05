@@ -1,64 +1,107 @@
 # SLRTP-Sign-Production-Evaluation
 
-This codebase is part of the 3rd Workshop on Sign Language Recognition, Translation, and Production at CVPR 2025. For more details on the workshop please visit the website: https://slrtpworkshop.github.io/
+This codebase supports the 3rd Workshop on Sign Language Recognition, Translation, and Production (SLRTP) at CVPR 2025. For more details, visit the [workshop website](https://slrtpworkshop.github.io/).
+
+## Overview
 
 We have seen an increase in Sign Language Production (SLP) approaches over the last few years. However, the lack of standardized evaluation metrics for SLP approaches hampers meaningful comparisons across different systems. The goal of this challenge is to develop a system that can translate spoken language to sign language. We release a standardized evaluation network, establishing a consistent baseline for the SLP field and enabling future researchers to compare their work against a broader range of methods.
 
-## Getting started
 
-To get started, you will need to install the requirements. You can do this by running the following command:
+## Installation
+
+### Requirements
 
 ```bash
-conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0  pytorch-cuda=11.8 -c pytorch -c nvidia
+# Create and activate a new conda environment (recommended)
+conda create --name slrtp python=3.8
+conda activate slrtp
 
+# Install PyTorch with CUDA support
+conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# Install other dependencies
 pip install -r ./requirements.txt
 ```
 
+## Back Translation Model
 
+The evaluation framework uses a back translation model to convert generated sign poses back to text for comparison.
 
-## Training a Back Translation model
+- **Original Source**: Sign Language Transformers ([GitHub Repository](https://github.com/neccam/slt))
+- **Pretrained Models**: Download from [link placeholder] (alternative to training your own)
 
-The original model comes from Sign Language Transformers, https://github.com/neccam/slt. Please cite the original paper appropriately. 
+Please cite the original paper appropriately when using this code.
 
-Alternatively, please see xxx for a pretrained model. 
+## Running the Evaluation
 
+### Basic Usage
+
+```bash
+python main.py <input_path> <gt_path> <model_dir> --tag <evaluation_name> --fps <frame_rate>
+```
 
 ### Arguments
 
-- `input_path` (str): Path to the pickel or pytorch file containing the predicted skeleton keypoints.
-- `model_dir` (str): Path to the directory containing the pretrained models.
-- `split` (str): PHIX dev or test split.
-- `--tag` (str, optional): Name for the output file. Default is 'results'.
-- `--fps` (int, optional): the input frame rate of the predictions. Default is 25.
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `input_path` | Path to predicted skeleton keypoints (.pt or .pkl file) | Required |
+| `gt_path` | Path to ground truth skeleton keypoints and text | Required |
+| `model_dir` | Directory containing the pretrained back translation model | Required |
+| `--tag` | Name for the output results file | 'results' |
+| `--fps` | Frame rate of the prediction data | 25 |
 
-**Warning!!!** - the expected frame rate of the predictions is 25fps. If the frame rate is different, the performance will be lower than expected!
+⚠️ **Important**: The expected frame rate for optimal performance is 25fps. Different frame rates may result in lower performance metrics.
 
-### Example Formate
+### Example Usage
 
 ```bash
-python main.py /path/to/predictions /path/to/models dev --tag evaluation_results
+python main.py ./demo_data/progressive_transformer_baseline_dev.pt ./demo_data/ground_truth_dev.pt ./backTranslation_PHIX_model --tag demo --fps 12
 ```
 
-### Example Command
+### Example Output
 
-### Evaluation Metrics
-The script evaluates the predictions using the following metrics:  
-- **BLEU**: Bilingual Evaluation Understudy Score
-- **CHRF**: Character n-gram F-score
-- **ROUGE**: Recall-Oriented Understudy for Gisting Evaluation
-- **WER**: Word Error Rate
-- **DTW MJE**: Dynamic Time Warping Mean Joint Error
+```json
+{
+    "bleu": {
+        "bleu1": 15.946522413242281,
+        "bleu2": 4.580890661810554,
+        "bleu3": 0.0,
+        "bleu4": 0.0
+    },
+    "chrf": 19.755041720753972,
+    "rouge": 15.536963615448718,
+    "wer": 101.83727034120736,
+    "dtw_mje": 0.04589659720659256,
+    "total_distance": 0.30942216515541077
+}
+```
+
+## Evaluation Metrics Explained
+
+The framework evaluates sign language production using both text-based and pose-based metrics:
+
+### Text-Based Metrics
+- **BLEU (Bilingual Evaluation Understudy)**: Measures n-gram precision between predicted and reference text
+  - BLEU-1 through BLEU-4 values represent different n-gram sizes
+- **CHRF (Character n-gram F-score)**: Character-level metric that balances precision and recall
+- **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)**: Focuses on recall of n-grams
+- **WER (Word Error Rate)**: Measures the minimum edit distance between predicted and reference texts
+
+### Pose-Based Metrics
+- **DTW MJE (Dynamic Time Warping Mean Joint Error)**: Measures pose accuracy while accounting for timing differences
 - **Total Distance**: Total distance between predicted and ground truth poses
 
-### GT Back translation score
-The following is the expected output for the GT back translation model:
+## Reference Performance
 
-Command: 
+### Ground Truth Back-Translation Scores
+
+#### Development Set
+Command:
 ```bash
-python main.py ./data/dev.pt ./backTranslation_PHIX ./data/dev.pt --tag ground_truth_dev --fps 25
+python main.py ./data/dev.pt ./data/dev.pt ./backTranslation_PHIX_model --tag ground_truth_dev --fps 25
 ```
 
-Dev:
+Results:
 ```json
 {
     "bleu": {
@@ -73,15 +116,15 @@ Dev:
     "dtw_mje": 0.0,
     "total_distance": 1.0
 }
-
 ```
 
-Command: 
+#### Test Set
+Command:
 ```bash
-python main.py ./data/test.pt ./backTranslation_PHIX ./data/test.pt --tag ground_truth_dev --fps 25
+python main.py ./data/test.pt ./data/test.pt ./backTranslation_PHIX_model --tag ground_truth_test --fps 25
 ```
 
-Test:
+Results:
 ```json
 {
     "bleu": {
@@ -98,8 +141,77 @@ Test:
 }
 ```
 
-## Skeleton Formate
+### SLP 2025 CVPR Challenge Scores
 
-The skeleton representation is made of 178 keypoints for an example visualization see ./demo_plots/ 
+Coming soon! Table from the SLP 2025 CVPR challenge.
 
-For more information on the skeleton formate see https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code
+## Skeleton Format
+
+The evaluation uses a skeleton representation consisting of 178 keypoints.  Example visualizations can be found in the `./demo_plots/` directory.
+
+The skeleton format follows the standard used in the SLRTP CVPR 2025 Challenge. For detailed information on the format specification, visit the [challenge repository](https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code).
+
+## Dataset
+
+For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
+
+The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
+
+<div style="display: flex; justify-content: center;">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4330.gif" alt="GIF 1" width="200">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4331.gif" alt="GIF 2" width="200">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4332.gif" alt="GIF 3" width="200">
+</div>
+
+The dataset is split into training, development, and test sets. The training set contains 7096 videos, the development set contains 519 videos, and the test set contains 642 videos. 
+
+For each video we extract Mediapipe holistic keypoints and use the approach from "[Improving 3D Pose Estimation For Sign Language](https://personalpages.surrey.ac.uk/r.bowden/publications/2023/IvashechkinSLTAT2023.pdf)" by Ivashechkin, Maksym and Mendez, Oscar and Bowden, Richard, to uplift the predictions to 3D. We process the skeleton and provide 178 keypoint representations. 
+
+    - 21 keypoints for the hand
+    - 128 keypoints for the face
+    - 8 keypoints for the body
+
+The face is a subset of the 468 keypoint representations from the Mediapipe face mesh.
+
+### Challenge Data Format
+
+Inside the provided .pt files, you will find a dictionary with the following structure:
+
+```json
+{
+    "01April_2010_Thursday_heute-6704":{
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+     "30September_2012_Sunday_tagesschau-4038": {
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+    ...
+    "27October_2009_Tuesday_tagesschau-6148":   {
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+}
+```
+
+Split 80:10:10 for training, validation, and test sets.
+
+The frame rate is equal to 25 frames per second.
+
+## Citation
+
+When using this evaluation framework or participating in the challenge, please cite:
+
+```
+[Citation information will be provided]
+```
