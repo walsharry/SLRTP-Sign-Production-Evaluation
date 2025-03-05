@@ -149,7 +149,7 @@ The frame rate is equal to 25 frames per second.
 
 For each video we extract Mediapipe holistic keypoints and use the approach from "[Improving 3D Pose Estimation For Sign Language](https://personalpages.surrey.ac.uk/r.bowden/publications/2023/IvashechkinSLTAT2023.pdf)" by Ivashechkin, Maksym and Mendez, Oscar and Bowden, Richard, to uplift the predictions to 3D. We process the skeleton and provide 178 keypoint representations. 
 
-    - 21 keypoints for the hand
+    - 21 keypoints for each hand
     - 128 keypoints for the face
     - 8 keypoints for the body
 
