@@ -1,0 +1,12 @@
+tqdm==4.60.0
+torchtext==0.5.0
+scikit-learn==1.2.2
+portalocker==1.5.2
+protobuf==3.20.3
+packaging==20.3
+scipy==1.10.1
+matplotlib==3.7.5
+tensorboard==2.13.0
+sacrebleu==2.4.0
+jiwer==3.1.0
+fastdtw==0.3.4
