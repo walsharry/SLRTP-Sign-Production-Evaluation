@@ -91,6 +91,74 @@ The framework evaluates sign language production using both text-based and pose-
 - **DTW MJE (Dynamic Time Warping Mean Joint Error)**: Measures pose accuracy while accounting for timing differences
 - **Total Distance**: Total distance between predicted and ground truth poses
 
+
+### SLP 2025 CVPR Challenge Scores
+
+Coming soon! Table from the SLP 2025 CVPR challenge.
+
+## Dataset
+
+For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
+
+The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
+
+<div style="display: flex; justify-content: center;">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4330.gif" alt="GIF 1" width="200">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4331.gif" alt="GIF 2" width="200">
+    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4332.gif" alt="GIF 3" width="200">
+</div>
+
+The dataset is split into training, development, and test sets. The training set contains 7096 videos, the development set contains 519 videos, and the test set contains 642 videos. 
+
+### Challenge Data Format
+
+Inside the provided .pt files, you will find a dictionary with the following structure:
+
+```json
+{
+    "01April_2010_Thursday_heute-6704":{
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+     "30September_2012_Sunday_tagesschau-4038": {
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+    ...
+    "27October_2009_Tuesday_tagesschau-6148":   {
+      "name": (string),
+      "text": (string),
+      "gloss": (string),
+      "poses_3d" : (N x K x D),
+      "speaker" : (string),
+    },
+}
+```
+
+Split 80:10:10 for training, validation, and test sets.
+
+The frame rate is equal to 25 frames per second.
+
+## Skeleton Format
+
+For each video we extract Mediapipe holistic keypoints and use the approach from "[Improving 3D Pose Estimation For Sign Language](https://personalpages.surrey.ac.uk/r.bowden/publications/2023/IvashechkinSLTAT2023.pdf)" by Ivashechkin, Maksym and Mendez, Oscar and Bowden, Richard, to uplift the predictions to 3D. We process the skeleton and provide 178 keypoint representations. 
+
+    - 21 keypoints for the hand
+    - 128 keypoints for the face
+    - 8 keypoints for the body
+
+The face is a subset of the 468 keypoint representations from the Mediapipe face mesh. 
+
+Example visualizations can be found in the `./demo_plots/` directory.
+
+The skeleton format follows the standard used in the SLRTP CVPR 2025 Challenge. For detailed information on the format specification, visit the [challenge repository](https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code).
+
 ## Reference Performance
 
 ### Ground Truth Back-Translation Scores
@@ -141,72 +209,6 @@ Results:
 }
 ```
 
-### SLP 2025 CVPR Challenge Scores
-
-Coming soon! Table from the SLP 2025 CVPR challenge.
-
-## Skeleton Format
-
-The evaluation uses a skeleton representation consisting of 178 keypoints.  Example visualizations can be found in the `./demo_plots/` directory.
-
-The skeleton format follows the standard used in the SLRTP CVPR 2025 Challenge. For detailed information on the format specification, visit the [challenge repository](https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code).
-
-## Dataset
-
-For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
-
-The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
-
-<div style="display: flex; justify-content: center;">
-    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4330.gif" alt="GIF 1" width="200">
-    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4331.gif" alt="GIF 2" width="200">
-    <img src="../demo_plots/01April_2010_Thursday_tagesschau-4332.gif" alt="GIF 3" width="200">
-</div>
-
-The dataset is split into training, development, and test sets. The training set contains 7096 videos, the development set contains 519 videos, and the test set contains 642 videos. 
-
-For each video we extract Mediapipe holistic keypoints and use the approach from "[Improving 3D Pose Estimation For Sign Language](https://personalpages.surrey.ac.uk/r.bowden/publications/2023/IvashechkinSLTAT2023.pdf)" by Ivashechkin, Maksym and Mendez, Oscar and Bowden, Richard, to uplift the predictions to 3D. We process the skeleton and provide 178 keypoint representations. 
-
-    - 21 keypoints for the hand
-    - 128 keypoints for the face
-    - 8 keypoints for the body
-
-The face is a subset of the 468 keypoint representations from the Mediapipe face mesh.
-
-### Challenge Data Format
-
-Inside the provided .pt files, you will find a dictionary with the following structure:
-
-```json
-{
-    "01April_2010_Thursday_heute-6704":{
-      "name": (string),
-      "text": (string),
-      "gloss": (string),
-      "poses_3d" : (N x K x D),
-      "speaker" : (string),
-    },
-     "30September_2012_Sunday_tagesschau-4038": {
-      "name": (string),
-      "text": (string),
-      "gloss": (string),
-      "poses_3d" : (N x K x D),
-      "speaker" : (string),
-    },
-    ...
-    "27October_2009_Tuesday_tagesschau-6148":   {
-      "name": (string),
-      "text": (string),
-      "gloss": (string),
-      "poses_3d" : (N x K x D),
-      "speaker" : (string),
-    },
-}
-```
-
-Split 80:10:10 for training, validation, and test sets.
-
-The frame rate is equal to 25 frames per second.
 
 ## Citation
 
