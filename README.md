@@ -29,7 +29,7 @@ pip install -r ./requirements.txt
 The evaluation framework uses a back translation model to convert generated sign poses back to text for comparison.
 
 - **Original Source**: Sign Language Transformers ([GitHub Repository](https://github.com/neccam/slt))
-- **Pretrained Models**: Download from [link placeholder] (alternative to training your own)
+- **Pretrained Models**: Download from [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view) (alternative to training your own)
 
 Please cite the original paper appropriately when using this code.
 
