@@ -17,6 +17,7 @@ conda create --name slrtp python=3.8
 conda activate slrtp
 
 # Install PyTorch with CUDA support
+# Please change PyTorch CUDA version to match your system!
 conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=11.8 -c pytorch -c nvidia
 
 # Install other dependencies
