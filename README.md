@@ -154,7 +154,7 @@ For each video we extract Mediapipe holistic keypoints and use the approach from
     - 128 keypoints for the face
     - 8 keypoints for the body
 
-The face is a subset of the 468 keypoint representations from the Mediapipe face mesh. 
+The face is a subset of the 468 keypoint representations from the Mediapipe face mesh. See 'make_128_face_from_478.py' to create the 128 face mesh from mediapipe's 478 (mp_face_mesh.FaceMesh)
 
 Example visualizations can be found in the `./demo_plots/` directory.
 
