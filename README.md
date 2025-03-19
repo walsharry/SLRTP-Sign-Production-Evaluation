@@ -97,6 +97,11 @@ The framework evaluates sign language production using both text-based and pose-
 
 Coming soon! Table from the SLP 2025 CVPR challenge.
 
+#### Publically Available Codebases
+Team 1: [USTC-MoE](https://github.com/ZechengLi19/CVPRW-SLP-2025)
+Team 2: [hfut-lmc](https://github.com/NaVi-start/Sign-Base.git)
+Team 3: [Hacettepe](https://github.com/sumeyyemeryem/CVPR25-SLRTPChallenge)
+
 ## Dataset
 
 For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
