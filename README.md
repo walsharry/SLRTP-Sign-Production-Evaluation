@@ -29,7 +29,7 @@ pip install -r ./requirements.txt
 The evaluation framework uses a back translation model to convert generated sign poses back to text for comparison.
 
 - **Original Source**: Sign Language Transformers ([GitHub Repository](https://github.com/neccam/slt))
-- **Pretrained Models**: Download from [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view) (alternative to training your own)
+- **Pretrained Models and Phix Data**: Download from [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view) (alternative to training your own)
 
 Please cite the original paper appropriately when using this code.
 
@@ -104,7 +104,24 @@ Team 3: [Hacettepe](https://github.com/sumeyyemeryem/CVPR25-SLRTPChallenge)
 
 ## Dataset
 
-For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
+For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset and back translation model at [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view).
+
+**File Content:**
+```bash
+├── backTranslation_PHIX_model
+│   ├── best.ckpt
+│   ├── config.yaml
+│   ├── gls.vocab
+│   ├── txt.vocab
+│   └── validations.txt
+└── data
+    ├── dev.pt
+    ├── PT_baseline_dev.pt
+    ├── PT_baseline_test.pt
+    ├── test.pt
+    └── train.pt
+```
+Note the data folder contains the PHOENIX-2014 train, test and dev split. Plus the prediction from the progressive transformer
 
 The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
 
