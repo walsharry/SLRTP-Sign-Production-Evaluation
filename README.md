@@ -94,10 +94,31 @@ The framework evaluates sign language production using both text-based and pose-
 
 
 ### SLP 2025 CVPR Challenge Scores
+**Table 1: RWTH-PHOENIX-Weather-2014T Test Set**
 
-Coming soon! Table from the SLP 2025 CVPR challenge.
+| Teams                        | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance |
+|------------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|
+| Ground Truth                 | 34.40  | 22.04  | 16.09  | 12.78  | 34.59 | 35.20 | 85.77  | 0.0000    | 1.000          |
+| Team 1 (USTC-MoE)            | 34.85  | 21.96  | 15.65  | 12.06  | 36.83 | 36.59 | 93.49  | 0.0448    | 1.631          |
+| Team 2 (hfut-lmc)            | 16.96  | 6.56   | 3.38   | 2.05   | 25.88 | 19.77 | 147.85 | 0.0403    | 2.512          |
+| Team 3 (Hacettepe)           | 30.44  | 17.75  | 12.42  | 9.59   | 29.70 | 30.64 | 88.88  | 0.0423    | 0.798          |
+| Progressive Transformer [cite]| 22.17  | 10.71  | 7.09   | 5.43   | 24.13 | 21.98 | 101.45 | 0.0418    | 0.257          |
 
-#### Publically Available Codebases
+*Caption: SLP Challenge Results on the ph14t test set.*
+
+**Table 2: Hidden Test Set**
+
+| Teams                        | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance |
+|------------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|
+| Ground Truth                 | 37.94  | 19.87  | 10.67  | 5.90   | 30.64 | 38.60 | 101.25 | 0.0000    | 1.000          |
+| Team 1 (USTC-MoE)            | 31.40  | 17.09  | 9.43   | 5.86   | 31.73 | 33.75 | 109.38 | 0.0574    | 1.185          |
+| Team 2 (hfut-lmc)            | 30.54  | 16.22  | 9.33   | 5.66   | 30.17 | 32.92 | 107.93 | 0.0492    | 0.971          |
+| Team 3 (Hacettepe)           | 27.51  | 11.13  | 5.36   | 2.91   | 23.37 | 27.29 | 105.49 | 0.0531    | 0.761          |
+| Progressive Transformer [cite]| 18.33  | 4.99   | 1.74   | 0.78   | 21.65 | 21.10 | 141.93 | 0.0467    | 0.322          |
+
+*Caption: SLP Challenge Results on the Hidden Test Set.*
+
+#### Publicly Available Codebases
 Team 1: [USTC-MoE](https://github.com/ZechengLi19/CVPRW-SLP-2025)
 Team 2: [hfut-lmc](https://github.com/NaVi-start/Sign-Base.git)
 Team 3: [Hacettepe](https://github.com/sumeyyemeryem/CVPR25-SLRTPChallenge)
@@ -121,7 +142,7 @@ For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset
     ├── test.pt
     └── train.pt
 ```
-Note the data folder contains the PHOENIX-2014 train, test and dev split. Plus the prediction from the progressive transformer
+Note that the data folder contains the PHOENIX-2014 train, test, and dev split. Plus, the prediction from the progressive transformer
 
 The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
 
