@@ -87,6 +87,8 @@ The framework evaluates sign language production using both text-based and pose-
 - **CHRF (Character n-gram F-score)**: Character-level metric that balances precision and recall
 - **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)**: Focuses on recall of n-grams
 - **WER (Word Error Rate)**: Measures the minimum edit distance between predicted and reference texts
+- **Total Distance**: This metric measures the overall distance the signer’s hands have moved in 3D space. This is to judge how expressive the productions are. The prediction is normalized by the ground truth distance, therefore, a score of 1 is optimal.
+-  **Average Duration**: This metric assesses the accuracy of signed duration, a key component of prosody. It averages the duration of the predicted output against the duration of the ground truth reference.
 
 ### Pose-Based Metrics
 - **DTW MJE (Dynamic Time Warping Mean Joint Error)**: Measures pose accuracy while accounting for timing differences
@@ -96,13 +98,13 @@ The framework evaluates sign language production using both text-based and pose-
 ### SLP 2025 CVPR Challenge Scores
 **Table 1: RWTH-PHOENIX-Weather-2014T Test Set**
 
-| Teams                        | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance |
-|------------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|
-| Ground Truth                 | 34.40  | 22.04  | 16.09  | 12.78  | 34.59 | 35.20 | 85.77  | 0.0000    | 1.000          |
-| Team 1 (USTC-MoE)            | 34.85  | 21.96  | 15.65  | 12.06  | 36.83 | 36.59 | 93.49  | 0.0448    | 1.631          |
-| Team 2 (hfut-lmc)            | 16.96  | 6.56   | 3.38   | 2.05   | 25.88 | 19.77 | 147.85 | 0.0403    | 2.512          |
-| Team 3 (Hacettepe)           | 30.44  | 17.75  | 12.42  | 9.59   | 29.70 | 30.64 | 88.88  | 0.0423    | 0.798          |
-| Progressive Transformer [cite]| 22.17  | 10.71  | 7.09   | 5.43   | 24.13 | 21.98 | 101.45 | 0.0418    | 0.257          |
+| Teams                       | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance | Average Duration |
+|-----------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|------------------|
+| Ground Truth                | 34.40  | 22.04  | 16.09  | 12.78  | 34.59 | 35.20 | 85.77  | 0.0000    | 1.000          | 1.000      |
+| Team 1 (USTC-MoE)           | 34.85  | 21.96  | 15.65  | 12.06  | 36.83 | 36.59 | 93.49  | 0.0448    | 1.631          | 1.438      |
+| Team 2 (hfut-lmc)           | 16.96  | 6.56   | 3.38   | 2.05   | 25.88 | 19.77 | 147.85 | 0.0403    | 2.512          | 2.463      |
+| Team 3 (Hacettepe)          | 30.44  | 17.75  | 12.42  | 9.59   | 29.70 | 30.64 | 88.88  | 0.0423    | 0.798          | 1.026      |
+| Progressive Transformer     | 22.17  | 10.71  | 7.09   | 5.43   | 24.13 | 21.98 | 101.45 | 0.0418    | 0.257          | 0.999      |
 
 *Caption: SLP Challenge Results on the ph14t test set.*
 
