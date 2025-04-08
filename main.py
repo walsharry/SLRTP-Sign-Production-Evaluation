@@ -33,6 +33,7 @@ from metrics import (
     rouge,
     pose_dtw_mje,
     pose_distance,
+    pose_length,
 )
 
 
@@ -115,6 +116,7 @@ if __name__ == '__main__':
     # pose metrics
     dtwmje_score = pose_dtw_mje(hyps=pose_predictions, gt_pose=gt_pose)
     total_distance = pose_distance(hyps=pose_predictions, gt_pose=gt_pose)
+    avg_duration = pose_length(hyps=pose_predictions, gt_pose=gt_pose)
 
     results = {
         "bleu": bleu_score,
@@ -123,6 +125,7 @@ if __name__ == '__main__':
         "wer": wer_score,
         "dtw_mje": dtwmje_score,
         "total_distance": total_distance,
+        "avg_duration": avg_duration
     }
 
     print(f"BLEU: {bleu_score}")
@@ -131,9 +134,13 @@ if __name__ == '__main__':
     print(f"WER: {wer_score}")
     print(f"DTW MJE: {dtwmje_score}")
     print(f"Total Distance: {total_distance}")
+    print(f"Average Duration: {avg_duration}")
 
     # save to json file
     save_path = Path('./results')
     save_path.mkdir(exist_ok=True, parents=True)
     with open(save_path / f'{args.tag}.json', 'w') as json_file:
         json.dump(results, json_file, indent=4)
+    print(f"Results saved to {save_path / f'{args.tag}.json'}")
+
+    torch.save(text_pred, save_path / f'{args.tag}_text_preds.pt')

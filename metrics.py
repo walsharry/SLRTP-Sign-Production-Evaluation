@@ -226,3 +226,11 @@ def pose_distance(hyps: list = None, gt_pose: torch.Tensor = None):
 
     return score.item()
 
+
+def pose_length(hyps: list = None, gt_pose: list = None):
+    """
+    Calculate the length of the pose sequences.
+    """
+    avg_lengths = [len(h)/len(g) for h, g in zip(hyps, gt_pose)]
+    return np.mean(avg_lengths)
+
