@@ -17,6 +17,7 @@ conda create --name slrtp python=3.8
 conda activate slrtp
 
 # Install PyTorch with CUDA support
+# Please change PyTorch CUDA version to match your system!
 conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=11.8 -c pytorch -c nvidia
 
 # Install other dependencies
@@ -28,7 +29,7 @@ pip install -r ./requirements.txt
 The evaluation framework uses a back translation model to convert generated sign poses back to text for comparison.
 
 - **Original Source**: Sign Language Transformers ([GitHub Repository](https://github.com/neccam/slt))
-- **Pretrained Models**: Download from [link placeholder] (alternative to training your own)
+- **Pretrained Models and Phix Data**: Download from [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view) (alternative to training your own)
 
 Please cite the original paper appropriately when using this code.
 
@@ -86,6 +87,8 @@ The framework evaluates sign language production using both text-based and pose-
 - **CHRF (Character n-gram F-score)**: Character-level metric that balances precision and recall
 - **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)**: Focuses on recall of n-grams
 - **WER (Word Error Rate)**: Measures the minimum edit distance between predicted and reference texts
+- **Total Distance**: This metric measures the overall distance the signer’s hands have moved in 3D space. This is to judge how expressive the productions are. The prediction is normalized by the ground truth distance, therefore, a score of 1 is optimal.
+-  **Average Duration**: This metric assesses the accuracy of signed duration, a key component of prosody. It averages the duration of the predicted output against the duration of the ground truth reference.
 
 ### Pose-Based Metrics
 - **DTW MJE (Dynamic Time Warping Mean Joint Error)**: Measures pose accuracy while accounting for timing differences
@@ -93,12 +96,55 @@ The framework evaluates sign language production using both text-based and pose-
 
 
 ### SLP 2025 CVPR Challenge Scores
+**Table 1: RWTH-PHOENIX-Weather-2014T Test Set**
 
-Coming soon! Table from the SLP 2025 CVPR challenge.
+| Teams                       | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance | Average Duration |
+|-----------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|------------------|
+| Ground Truth                | 34.40  | 22.04  | 16.09  | 12.78  | 34.59 | 35.20 | 85.77  | 0.0000    | 1.000          | 1.000      |
+| Team 1 (USTC-MoE)           | 34.85  | 21.96  | 15.65  | 12.06  | 36.83 | 36.59 | 93.49  | 0.0448    | 1.631          | 1.438      |
+| Team 2 (hfut-lmc)           | 16.96  | 6.56   | 3.38   | 2.05   | 25.88 | 19.77 | 147.85 | 0.0403    | 2.512          | 2.463      |
+| Team 3 (Hacettepe)          | 30.44  | 17.75  | 12.42  | 9.59   | 29.70 | 30.64 | 88.88  | 0.0423    | 0.798          | 1.026      |
+| Progressive Transformer     | 22.17  | 10.71  | 7.09   | 5.43   | 24.13 | 21.98 | 101.45 | 0.0418    | 0.257          | 0.999      |
+
+*Caption: SLP Challenge Results on the ph14t test set.*
+
+**Table 2: Hidden Test Set**
+
+| Teams                        | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | CHRF  | ROUGE | WER ↓  | DTW-MJE ↓ | Total Distance |
+|------------------------------|--------|--------|--------|--------|-------|-------|--------|-----------|----------------|
+| Ground Truth                 | 37.94  | 19.87  | 10.67  | 5.90   | 30.64 | 38.60 | 101.25 | 0.0000    | 1.000          |
+| Team 1 (USTC-MoE)            | 31.40  | 17.09  | 9.43   | 5.86   | 31.73 | 33.75 | 109.38 | 0.0574    | 1.185          |
+| Team 2 (hfut-lmc)            | 30.54  | 16.22  | 9.33   | 5.66   | 30.17 | 32.92 | 107.93 | 0.0492    | 0.971          |
+| Team 3 (Hacettepe)           | 27.51  | 11.13  | 5.36   | 2.91   | 23.37 | 27.29 | 105.49 | 0.0531    | 0.761          |
+| Progressive Transformer [cite]| 18.33  | 4.99   | 1.74   | 0.78   | 21.65 | 21.10 | 141.93 | 0.0467    | 0.322          |
+
+*Caption: SLP Challenge Results on the Hidden Test Set.*
+
+#### Publicly Available Codebases
+Team 1: [USTC-MoE](https://github.com/ZechengLi19/CVPRW-SLP-2025)
+Team 2: [hfut-lmc](https://github.com/NaVi-start/Sign-Base.git)
+Team 3: [Hacettepe](https://github.com/sumeyyemeryem/CVPR25-SLRTPChallenge)
 
 ## Dataset
 
-For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset at [link placeholder].
+For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset and back translation model at [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view).
+
+**File Content:**
+```bash
+├── backTranslation_PHIX_model
+│   ├── best.ckpt
+│   ├── config.yaml
+│   ├── gls.vocab
+│   ├── txt.vocab
+│   └── validations.txt
+└── data
+    ├── dev.pt
+    ├── PT_baseline_dev.pt
+    ├── PT_baseline_test.pt
+    ├── test.pt
+    └── train.pt
+```
+Note that the data folder contains the PHOENIX-2014 train, test, and dev split. Plus, the prediction from the progressive transformer
 
 The PHOENIX-2014 dataset is a large-scale dataset used for research in sign language recognition and translation. It contains continuous sign language videos along with their corresponding gloss annotations and spoken language translations. The dataset is derived from weather forecast broadcasts in German Sign Language (DGS).
 
@@ -149,11 +195,11 @@ The frame rate is equal to 25 frames per second.
 
 For each video we extract Mediapipe holistic keypoints and use the approach from "[Improving 3D Pose Estimation For Sign Language](https://personalpages.surrey.ac.uk/r.bowden/publications/2023/IvashechkinSLTAT2023.pdf)" by Ivashechkin, Maksym and Mendez, Oscar and Bowden, Richard, to uplift the predictions to 3D. We process the skeleton and provide 178 keypoint representations. 
 
-    - 21 keypoints for the hand
+    - 21 keypoints for each hand
     - 128 keypoints for the face
     - 8 keypoints for the body
 
-The face is a subset of the 468 keypoint representations from the Mediapipe face mesh. 
+The face is a subset of the 468 keypoint representations from the Mediapipe face mesh. See 'make_128_face_from_478.py' to create the 128 face mesh from mediapipe's 478 (mp_face_mesh.FaceMesh)
 
 Example visualizations can be found in the `./demo_plots/` directory.
 
