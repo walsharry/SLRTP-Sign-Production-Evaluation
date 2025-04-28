@@ -203,7 +203,7 @@ The face is a subset of the 468 keypoint representations from the Mediapipe face
 
 Example visualizations can be found in the `./demo_plots/` directory.
 
-The skeleton format follows the standard used in the SLRTP CVPR 2025 Challenge. For detailed information on the format specification, visit the [challenge repository](https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code).
+The skeleton format follows the standard used in the SLRTP CVPR 2025 Challenge. For detailed information on the format specification, visit the [challenge Skeleton Information]([https://github.com/walsharry/SLRTP_CVPR_2025_Challenge_Code](https://github.com/walsharry/SLRTP_Skeleton_Keypoint_information)).
 
 ## Reference Performance
 
