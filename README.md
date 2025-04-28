@@ -49,7 +49,6 @@ python main.py <input_path> <gt_path> <model_dir> --tag <evaluation_name> --fps 
 | `gt_path` | Path to ground truth skeleton keypoints and text | Required |
 | `model_dir` | Directory containing the pretrained back translation model | Required |
 | `--tag` | Name for the output results file | 'results' |
-| `--fps` | Frame rate of the prediction data | 25 |
 
 ⚠️ **Important**: The expected frame rate for optimal performance is 25fps. Different frame rates may result in lower performance metrics.
 
