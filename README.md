@@ -260,5 +260,10 @@ Results:
 When using this evaluation framework or participating in the challenge, please cite:
 
 ```
-[Citation information will be provided]
+@inproceedings{walsh2025slrtp,
+title={SLRTP2025 Sign Language Production Challenge: Methodology, Results, and Future Work},
+author={Walsh, Harry and Fish, Ed and Sincan, Ozge Mercanoglu and Lakhal, Mohamed Ilyes and Bowden, Richard and Fox, Neil and Cormier, Kearsy and Woll, Bencie and Wu, Kepeng and Li, Zecheng and Zhao, Weichao and Wang, Haodong and Zhou, Wengang and Li, Houqiang and Tang, Shengeng and He, Jiayi and Wang, Xu and Zhang, Ruobei and Wang, Yaxiong and Cheng, Lechao and Tasyurek, Meryem and Kiziltepe, Tugce and Keles, Hacer Yalim}, 
+booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+year={2025}
+}
 ```
