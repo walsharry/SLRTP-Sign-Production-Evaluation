@@ -1,3 +1,8 @@
+"""
+This file defines what subset of keypoints is used in the skeleton.
+Mediapipe has 478 keypoints, but we use only 128 of them.
+""" 
+
 # select the correct keypoint for the face
 face_478_to_128 = [
     0,
