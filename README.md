@@ -124,6 +124,10 @@ Team 1: [USTC-MoE](https://github.com/ZechengLi19/CVPRW-SLP-2025)
 Team 2: [hfut-lmc](https://github.com/NaVi-start/Sign-Base.git)
 Team 3: [Hacettepe](https://github.com/sumeyyemeryem/CVPR25-SLRTPChallenge)
 
+#### Other Publicly Available SLP Codebase
+Progressive Transformer: [Progressive Transformer](https://github.com/BenSaunders27/ProgressiveTransformersSLP)
+Sign VQ Transformer: [Sign VQ Transformer](https://github.com/walsharry/Sign-VQ-Transformer)
+
 ## Dataset
 
 For the SLRTP 2025 CVPR challenge, we use the RWTH-PHOENIX-Weather-2014T dataset. Access the challenge dataset and back translation model at [Google Drive](https://drive.google.com/file/d/1fjKHigsEWHwsMHnwwWdFYZ8dECXslTKi/view).
